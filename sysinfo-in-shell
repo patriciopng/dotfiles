@@ -1,0 +1,59 @@
+# by yaszu
+
+user=$USER@$(uname -n)
+
+pkg=$(ls -d /var/db/pkg/*/* | wc -l)
+
+shell=$(basename $SHELL)
+
+mem=$(free -m | awk '/Mem/{print $3"MiB", $2"MiB"}' OFS=' / ')
+
+term=$TERM
+
+wm="$(
+if [ ! -z "$DISPLAY" ]; then
+# check if xprop is installed
+if [ ! -z "$(type xprop)" ]; then
+        id="$(xprop -root -notype _NET_SUPPORTING_WM_CHECK)"
+        id="${id##* }"
+        if printf "$id" | grep -q "^[[:digit:]]\+$"; then
+                wm="$(xprop -id "$id" -notype -len 100 -f _NET_WM_NAME 8t)"
+                wm="$(printf '%s\n' "$wm" | sed -nr '/_NET_WM_NAME/ s/^.*"([a-zA-Z0-9 ()]+)"/\1/p')"
+                printf "$wm"
+        fi
+fi
+
+# if xprop is not installed or occur any errors, look for process
+[ -z "$wm" ] && \
+        ps -e | grep -v 'grep' | grep -m 1 -o -F \
+       	-e "i3" \
+       	-e "bspwm" \
+       	-e "dwm" \
+       	-e "xmonad" \
+       	-e "windowchef" \
+       	-e "openbox" \
+       	-e "fluxbox" \
+       	-e "spectrwm" \
+       	-e "awesome" \
+       	-e "dwm" \
+       	-e "2bwm" \
+       	-e "herbstluftwm" \
+       	-e "monsterwm" \
+       	-e "fvwm"
+else
+                printf 'none'
+fi)"
+
+uptime=$(uptime | awk -F'[, ]' '{print $4,$5}')
+
+clear
+
+echo
+echo -e "\033[01;35m   X User:   \033[00m$user  "
+echo -e "\033[01;35m   X UP:     \033[00m$uptime"
+echo -e "\033[01;35m   X WM:     \033[00m$wm    "
+echo -e "\033[01;35m   X Term:   \033[00m$term  "
+echo -e "\033[01;35m   x PKG:    \033[00m$pkg   "
+echo -e "\033[01;35m   x Mem:    \033[00m$mem   "
+echo -e "\033[01;35m   x Shell:  \033[00m$shell "
+echo
