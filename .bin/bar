@@ -1,0 +1,55 @@
+#!/bin/bash
+
+windowname() {
+	window=$(xdotool getwindowfocus getwindowname)
+
+	 echo "^fg(#ABB2BF) {$window}"
+}
+
+ram() {
+	mem=$(free -h | awk '/Mem/{print $3, $2}' OFS=' / ')
+	echo "^fg(#ABB2BF) {$mem}"
+}
+
+works() {
+
+	tags() {
+	des=$(wmctrl -d | awk '/*/ {print $9}')
+	if [[ "$des" == "main" ]]; then
+		echo -e '^fg(#918B88){main} ^fg(#c5c7bf)www irc mail foo bar'
+	elif [[ "$des" == "www" ]]; then
+		echo -e '^fg(#c5c7bf)main ^fg(#918B88){www} ^fg(#c5c7bf)irc mail foo bar'
+	elif [[ "$des" == "irc" ]]; then
+		echo -e '^fg(#c5c7bf)main www ^fg(#918B88){irc} ^fg(#c5c7bf)mail foo bar'
+	elif [[ "$des" == "mail" ]]; then
+		echo -e '^fg(#c5c7bf)main www irc ^fg(#918B88){mail} ^fg(#c5c7bf)foo bar'
+	elif [[ "$des" == "foo" ]]; then
+		echo -e '^fg(#c5c7bf)main www irc mail ^fg(#918B88){foo} ^fg(#c5c7bf)bar'
+	elif [[ "$des" == "bar" ]]; then
+		echo -e '^fg(#c5c7bf)main www irc mail foo ^fg(#918B88){bar}'
+	fi
+	}
+	echo "$(tags)"
+}
+
+dzen2 -p -bg "#030303" -h "25" -y "900" &
+
+sleep 1
+while true;do
+	echo "$(works)"
+	sleep 0
+done | dzen2 -p -ta "c" -bg "#030303" -fg "#000000" -fn "cherry-10" -h "25" -y "900" -w "300" -x "570" &
+
+sleep 1
+
+while true;do
+	echo "   $(windowname)" 
+	sleep 0
+done | dzen2 -p -ta "l" -bg "#030303" -fg "#000000" -fn "cherry-10" -h "25" -y "900" -w "200" &
+
+sleep 1
+
+while true;do
+	echo "$(ram)"
+	sleep 2
+done | dzen2 -p -ta "r" -bg "#030303" -fg "#000000" -fn "cherry-10" -h "25" -y "900" -w "500" -x "920" &
