@@ -133,6 +133,3 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 hc unlock
 
 hc detect_monitors
-
-setxkbmap -model thinkpad60 -layout br &
-
