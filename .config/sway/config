@@ -1,4 +1,4 @@
-### Variables
+# Variables
 
 set $mod Mod4
 set $left h
@@ -20,6 +20,7 @@ set $works9 "9"
 set $works10 "10"
 
 # rules
+
 assign [app_id="Alacritty"] $works1
 assign [app_id="firefox"] $works2
 
@@ -27,16 +28,17 @@ for_window [app_id="firefox"] focus
 for_window [app_id="Alacritty"] focus
 
 # keyboard
+
 input * {
     xkb_layout "br"
     xkb_variant "abnt2"
 }
 
-### Output configuration
-#output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# Output configuration
+
 output * bg #222222 solid_color
 
-### Key bindings
+# Key bindings
 
     # Start a terminal
     bindsym $mod+Return exec $term
@@ -56,9 +58,8 @@ output * bg #222222 solid_color
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
-#
-# Moving around:
-#
+# Moving around
+
     # Move your focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
@@ -80,9 +81,9 @@ output * bg #222222 solid_color
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
-#
-# Workspaces:
-#
+
+# Workspaces
+
     # Switch to workspace
     bindsym $mod+1 workspace $works1
     bindsym $mod+2 workspace $works2
@@ -107,9 +108,9 @@ output * bg #222222 solid_color
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
-#
-# Layout stuff:
-#
+
+# Layout stuff
+
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
@@ -132,18 +133,18 @@ output * bg #222222 solid_color
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
-#
-# Scratchpad:
-#
+
+# Scratchpad
+
     # Move the currently focused window to the scratchpad
     bindsym $mod+Shift+minus move scratchpad
 
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
-#
-# Resizing containers:
-#
+
+# Resizing containers
+
 mode "resize" {
     bindsym $left resize shrink width 10px
     bindsym $down resize grow height 10px
@@ -163,20 +164,20 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # window
+
 default_border pixel 2
 gaps inner 10
 gaps outer 10
 
 # colors
+
 client.focused          #ffffff #ffffff #ffffff #ffffff   #ffffff
 client.focused_inactive #ffffff #ffffff #ffffff #ffffff   #ffffff
 client.unfocused        #ffffff #ffffff #ffffff #ffffff   #333333
 client.urgent           #ffffff #ffffff #ffffff #ffffff   #ffffff
 
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
+# Status Bar
+
 bar {
 }
 
