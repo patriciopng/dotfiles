@@ -1,0 +1,28 @@
+# required by elogind
+sys-auth/pambase elogind
+
+# required by x11-libs/gtk+-3.24.22::gentoo[X]
+# required by www-client/firefox-78.5.0::gentoo[wayland]
+# required by firefox (argument)
+>=gnome-base/librsvg-2.48.8 introspection
+# required by gnome-base/librsvg-2.48.8::gentoo
+# required by x11-libs/gtk+-2.24.32-r1::gentoo
+# required by x11-themes/gtk-engines-adwaita-3.28::gentoo
+>=x11-libs/gdk-pixbuf-2.42.2 introspection
+# required by www-client/firefox-78.5.0::gentoo
+# required by firefox (argument)
+>=dev-lang/python-3.9.0 sqlite
+
+x11-libs/libX11 -ipv6
+sys-apps/busybox -ipv6
+x11-base/xorg-server -ipv6
+x11-libs/libXfont2 -ipv6
+x11-libs/libSM -ipv6
+x11-libs/libXmu -ipv6
+x11-apps/xauth -ipv6
+x11-libs/libICE -ipv6
+
+media-libs/mesa X
+gui-wm/sway -swaybar -swaylock
+www-client/firefox hwaccel
+app-editors/vim -minimal
